@@ -1,0 +1,24 @@
+var myDucks = [];
+
+function setup() {
+var.cnv createCanvas(1200,800);
+cnv.position((windowWidth-width)/2, 30;
+  var n = 50;
+  loadDucks(n);
+ }
+ function draw(){
+  background(80,80, 80, 42);
+    for (var i=0, i <myDucks.length, i++){
+      myDucks[i].run();
+      }
+ }
+  function loadDucks(num){
+    for(var i=0; i < num; i ++){
+      var loc = createVector(0,0);
+      var vel = createVector(0,0);
+      var clr = color(255, 0, 0);
+      var d = new Duck(loc,vel,clr);
+      myDucks.push(d);
+     }
+    }
+    
