@@ -1,40 +1,49 @@
 
 //Connor Garratt
-//October 23, 2018
-//Word Sort
+//October 30, 2018
+//Colorbar Sort
 //  Global variables
 
 var bars = [];
 
-function preload(){
-  // p5 has a function named "loadStrings"
-  txt = loadStrings("words.txt");
-}
 //  The setup function function is called once when your program begins
 function setup() {
   var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
   background(200, 200, 200);
-  fill(200, 30, 150);
-  console.log(txt);
-bubbleSort()
-console.log(txt);
+ numBars = 50;
+  loadBars(numBars);
+  bubbleSort(Bars);
+}
+
+function loadBars(numBars){
+   for(var i = 0; i < numBars; i++){
+     var w = 800/numBars;
+     var h = 250;
+     var loc = createVector(0+(w*i), 150);
+     var red = random(0, 255);
+     var green = random(0, 255);
+     var blue = random(0, 255);
+     var clr = color(red, green, blue);
+     var clrAvg = (red + green+ blue)/3;
+     var bar = new colorbar(loc, w, h, clr, clrAvg);
+     Bars.push(bar);
+  }
 }
 
 
-function bubbleSort (){
-  for (var i = 0; i< txt.length; i++){
-    for (var j = 0; j <txt.length-i-1; j++){
-      if (txt[j] > txt[j+1]){
-          var temp = txt[j];
-           txt[j] = txt[j+1];
-             txt[j+1] = temp; //swap
-           }
-
-
-
+function bubbleSort(Bars) {
+    var length = Bars.length;
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < (length - i - 1); j++) {
+        var a = Bars[j].clrAvg;
+        var b = Bars[j+1].clrAvg;
+        if(a > b) {
+          var temp = Bars[j];
+          Bars[j] = Bars[j+1];
+          Bars[j+1] = temp;
+            }
+        }
     }
-  }
+}
 
-
-    }
