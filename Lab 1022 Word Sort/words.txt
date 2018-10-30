@@ -1,0 +1,6 @@
+cat
+dog
+giraffe
+mouse
+lizard
+rat
