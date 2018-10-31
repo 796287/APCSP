@@ -1,40 +1,27 @@
 
 //Connor Garratt
-//October 23, 2018
-//Word Sort
+//October 30, 2018
+//color bar
+
+
 //  Global variables
 
-var bars = [];
+var Bars = [];
 
-function preload(){
-  // p5 has a function named "loadStrings"
-  txt = loadStrings("words.txt");
-}
-//  The setup function function is called once when your program begins
 function setup() {
   var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
-  background(200, 200, 200);
-  fill(200, 30, 150);
-  console.log(txt);
-bubbleSort()
-console.log(txt);
+  background(20, 20, 20);
+  numBars = 70;
+  loadBars(numBars);
+  bubbleSort(Bars);
 }
 
-
-function bubbleSort (){
-  for (var i = 0; i< txt.length; i++){
-    for (var j = 0; j <txt.length-i-1; j++){
-      if (txt[j] > txt[j+1]){
-          var temp = txt[j];
-           txt[j] = txt[j+1];
-             txt[j+1] = temp; //swap
-           }
-
-
-
-    }
+function draw() {
+  background(20, 20, 20, 6000);
+  noStroke();
+  for(var i = 0; i < Bars.length; i++){
+    Bars[i].run();
   }
-
-
-    }
+}
+//creates the color bar and puts the bars into an array
