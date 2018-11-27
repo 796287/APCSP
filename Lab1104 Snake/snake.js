@@ -1,6 +1,3 @@
-
-
-
 // function Snake(loc, vel){
 //
 //   this.loc = loc;
@@ -20,6 +17,7 @@
 //     rect(this.loc.x, this.loc.y, w, w)
 //   }
 // }
+
 function Snake() {
   this.x = cols()/2 * scl;
   this.y = rows()/2 * scl;
@@ -69,6 +67,7 @@ function Snake() {
       this.y = height - scl;
     }
   }
+
 
   this.draw = function() {
     fill(0,255,0);
