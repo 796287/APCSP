@@ -17,7 +17,7 @@ snake = new Snake(createVector(width/2, height/2), createVector(1,0));
 }
 
 function draw() {
-  background(0,0,0);
+  background(25,150,30);
 
   snake.eat(food);
   snake.move();

@@ -1,22 +1,4 @@
-// function Snake(loc, vel){
-//
-//   this.loc = loc;
-//   this.vel =vel;
-//
-//   this.run = function(){
-//     this.update();
-//     this.render();
-//   }
-//   this.update = function(){
-//     this.loc.add(this.vel);
-//     this.loc.x = constrain(this.loc.x, 0, width-w);
-//     this.loc.y = constrain(this.loc.y, 0, width-w);
-//   }
-//   this.render = function(){
-//     fill(0,255,0);
-//     rect(this.loc.x, this.loc.y, w, w)
-//   }
-// }
+
 
 function Snake() {
   this.x = cols()/2 * scl;
@@ -56,21 +38,22 @@ function Snake() {
     this.y += this.yspeed * scl;
 
     // wrap around right and bottom edges
-    this.x %= width;
-    this.y %= height;
+
+    this.x = constrain(this.x, 0, width-scl);
+    this.y = constrain(this.y, 0, height-scl);
 
     // wrap around left and top edges
     if (this.x < 0) {
-      this.x = width - scl;
+      this.x = constrain(this.x, 0, width-scl);
     }
     if (this.y < 0) {
-      this.y = height - scl;
+      this.y = constrain(this.y, 0, width-scl);
     }
   }
 
 
   this.draw = function() {
-    fill(0,255,0);
+    fill(251,92,92);
     rect(this.x, this.y, scl, scl);
     for(var i = 0; i < this.tail.length; i++) {
       rect(this.tail[i].x,
