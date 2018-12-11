@@ -3,71 +3,121 @@
 //November 14, 2018
 
 //  Global variables
-var scl = 20;
 var snake;
-var food;
+var food = [];
+var numSeg = 1;
+var start = "true"
+var font;
+var score = 0;
 
 
-function setup() {
-  createCanvas(800, 800);
-  snake = new Snake();
-  food  = new Food();
-  frameRate(15);
-snake = new Snake(createVector(width/2, height/2), createVector(1,0));
+function setup(){
+  textAlign(CENTER, CENTER);
+  frameRate(10);
+  var cnv = createCanvas(800, 800);
+  cnv.position((windowWidth-width)/2, 30);
+  background(70, 200, 30);
+  loadSnake();
+  loadFood(1);
 }
 
-function draw() {
-  background(25,150,30);
+function draw(){
+  background(50, 100, 80);
+  snake.run();
+  textSize(50);
+  text("score is " + score, 120, 50)
+  noStroke();
+  Score();
+  for(var i = 0; i < food.length; i++){
+    food[i].run();
 
-  snake.eat(food);
-  snake.move();
-  snake.draw();
-  food.draw();
+  }
+
+  checkLoc();
+  deadGame();
+  gameStart();
+  Score();
 }
 
-// function keyPressed(){
-//   text(keyCode, 50, 50)
-//   if(keyCode === UP_ARROW){
-//     snake.vel = createVector(0, -1);
-//     snake.loc.add(snake.vel);
-//   }
-//
-//     if(keyCode === 40){
-//       snake.vel = createVector(0, 1);
-//       snake.loc.add(snake.vel);
-//     }
-//
-//     if(keyCode === 37){
-//       snake.vel = createVector(-1, 0);
-//       snake.loc.add(snake.vel);
-//     }
-//
-//     if(keyCode === 39){
-//       snake.vel = createVector(1, 0);
-//       snake.loc.add(snake.vel);
-//     }
-//
-// }
-function keyPressed() {
-  if (keyCode === 38) {
-    snake.dir(0, -1);
-  } else if (keyCode === 40) {
-    snake.dir(0, 1);
-  } else if (keyCode === 39) {
-    snake.dir(1, 0);
-  } else if (keyCode === 37) {
-    snake.dir(-1, 0);
+function checkLoc(){
+  for(var i = 0; i < food.length; i++){
+    var distX = food[i].loc.x - snake.loc.x;
+    var distY = food[i].loc.y - snake.loc.y;
+    if(distX == (0) && distY == (0)){
+      food.splice(i, 1);
+      loadFood(1);
+      snake.segments.push(createVector(0, 0));
+      console.log(snake.segments.length)
+      score++;
+    }
   }
 }
 
-function cols() {
-  return floor(width / scl);
+function loadSnake(){
+  var loc = createVector(200, 200);
+  var vel = createVector(0, 0);
+  snake = new Snake(loc, vel);
 }
 
-function rows() {
-  return floor(height / scl);
+function loadFood(numFood){
+  for(var i = 0; i < numFood; i++){
+    var min = 1;
+    //40 * 20 = 800
+    var max = 39;
+    var locX = (Math.floor(Math.random() * (max - min + 1) + min)) * 20;
+    var locY = (Math.floor(Math.random() * (max - min + 1) + min)) * 20;
+    var loc = createVector(locX, locY);
+    var f = new Food(loc);
+    food.push(f);
+  }
 }
 
-function randomVector() {
-  return createVector(floor(random(cols())), floor(random(rows())));
+function keyPressed(){
+  start = "false"
+  if(keyCode === 38){
+    snake.vel = createVector(0, -20)
+  }
+  if(keyCode === 40){
+    snake.vel = createVector(0, 20)
+  }
+  if(keyCode === 39){
+    snake.vel = createVector(20, 0)
+  }
+  if(keyCode === 37){
+    snake.vel = createVector(-20, 0)
+  }
+}
+
+function deadGame(){
+  if(snake.status == "true"){
+    snake = 0
+    score = 0;
+    text("Game Over refresh the game", 400, 400);
+    loadSnake();
+    gameStart();
+    gameover();
+
+  }
+}
+
+function gameStart(){
+  if(start == "true"){
+    textFont()
+    fill(90, 250, 60);
+    rect(225, 300, 350, 200);
+    fill(50, 100, 50);
+    rect(240, 315, 320, 170)
+    fill(80, 200, 70);
+    textAlign(CENTER);
+    textSize(100);
+    text("Snake", 400, 425)
+  }
+}
+
+function Score(){
+  if (score > 15){
+  fill(255, 0, 5);
+  textAlign(CENTER);
+  text("YOU WON!!!!!!", 400, 400);
+  }
 }
