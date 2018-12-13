@@ -1,5 +1,5 @@
 
-
+//creates location and velocity of the snake
 function Snake(loc, vel){
 
   this.loc = loc;
@@ -13,7 +13,7 @@ function Snake(loc, vel){
     this.render();
     this.dead();
   }
-
+//updates and adds segments to snake also constrains the snake
   this.update = function(){
     for(var i = this.segments.length - 1; i >= 0; i--){
       if(i > 0){
@@ -39,7 +39,7 @@ function Snake(loc, vel){
     rect(this.loc.x, this.loc.y, 20, 20);
   }
 
-
+//kills the snake 
   this.dead = function(){
     for(var i = 0; i < this.segments.length; i++){
       var distX = this.loc.x - this.segments[i].x;

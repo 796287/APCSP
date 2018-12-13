@@ -8,9 +8,11 @@ var food = [];
 var numSeg = 1;
 var start = "true"
 var font;
+//starts score at 0
 var score = 0;
 
-
+//creates the canvas and speed of snake
+//loads food
 function setup(){
   textAlign(CENTER, CENTER);
   frameRate(10);
@@ -20,7 +22,7 @@ function setup(){
   loadSnake();
   loadFood(1);
 }
-
+//color of backgoud and score
 function draw(){
   background(50, 100, 80);
   snake.run();
@@ -38,7 +40,7 @@ function draw(){
   gameStart();
   Score();
 }
-
+//splices the food
 function checkLoc(){
   for(var i = 0; i < food.length; i++){
     var distX = food[i].loc.x - snake.loc.x;
@@ -52,13 +54,13 @@ function checkLoc(){
     }
   }
 }
-
+//creates the snake
 function loadSnake(){
   var loc = createVector(200, 200);
   var vel = createVector(0, 0);
   snake = new Snake(loc, vel);
 }
-
+//creates the food on the screen
 function loadFood(numFood){
   for(var i = 0; i < numFood; i++){
     var min = 1;
@@ -71,7 +73,7 @@ function loadFood(numFood){
     food.push(f);
   }
 }
-
+//lets you move the snake with keyboard
 function keyPressed(){
   start = "false"
   if(keyCode === 38){
@@ -87,7 +89,7 @@ function keyPressed(){
     snake.vel = createVector(-20, 0)
   }
 }
-
+//kills the snake
 function deadGame(){
   if(snake.status == "true"){
     snake = 0
@@ -99,7 +101,7 @@ function deadGame(){
 
   }
 }
-
+//splash screen
 function gameStart(){
   if(start == "true"){
     textFont()
@@ -113,7 +115,7 @@ function gameStart(){
     text("Snake", 400, 425)
   }
 }
-
+//winning game function
 function Score(){
   if (score > 15){
   fill(255, 0, 5);

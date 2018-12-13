@@ -1,3 +1,4 @@
+//location for food and renders the food
 function Food(loc){
 
   this.loc = loc;
